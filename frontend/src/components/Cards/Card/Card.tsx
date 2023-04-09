@@ -1,26 +1,30 @@
 import React from 'react';
-import {TagsArray} from "./CardTags/CardTags";
+import {CardTags} from "./CardTags/CardTags";
 import CardAddButton from "./CardAddButton/CardAddButton";
+import styles from "./Card.module.sass"
 
-export const Card = () => {
+interface CardProps {
+    title: string,
+    year: number,
+    tags: string[],
+    score: number,
+    rating: string,
+    img: string
+
+}
+
+export const Card: React.FC<CardProps> = (props) => {
     return (
-        <div>
-          <div>
-              <img/>
+        <div className={styles.Card} style={{background: props.img}}>
+          <div className={styles.CardHeader}>
+              <a className={styles.CardHeaderTitle}>{props.title}</a>
+              <a className={styles.CardHeaderYear}>{props.year}</a>
+              <CardTags/>
           </div>
-          <div>
-              <div>
-                  <a>
-                  </a>
-                  <a>
-                  </a>
-                  <TagsArray/>
-              </div>
-              <div>
-                  <a></a>
-                  <a></a>
-                  <CardAddButton/>
-              </div>
+          <div className={styles.CardFooter}>
+              <a>{props.rating}</a>
+              <a>{props.score}</a>
+              <CardAddButton/>
           </div>
         </div>
     );
