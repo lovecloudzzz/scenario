@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./ListItem.module.sass"
 import DeleteButton from "../assets/DeleteButton.svg";
-interface ListItemProps{
+export interface ListItemProps{
     title: string,
     rating: number
 }

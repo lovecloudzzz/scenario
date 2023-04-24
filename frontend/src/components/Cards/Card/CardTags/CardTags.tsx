@@ -1,9 +1,15 @@
 import React from 'react';
+import styles from "./CardTags.module.sass";
 
-export const CardTags = () => {
+interface CardTagsProps{
+    tagsArray: string[]
+}
+export const CardTags: React.FC<CardTagsProps> = (props) => {
     return (
-        <div>
-
+        <div className={styles.Tags}>
+            {props.tagsArray.map((tag, index) => (
+                <a key={index}>{tag}</a>
+            ))}
         </div>
     );
 };
