@@ -1,17 +1,18 @@
 import React from 'react';
+import {NavItem} from "./NavItem/NavItem";
 
 export const Header = () => {
     return (
         <nav>
             <div>
-                <a><img/></a>
-                <a>dsa</a>
-                <a>das</a>
-                <a>das</a>
+                <NavItem/>
+                <NavItem/>
+                <NavItem/>
+                <NavItem/>
             </div>
             <div>
-                <a>das</a>
-                <a>dsa</a>
+                <NavItem/>
+                <NavItem/>
             </div>
         </nav>
     );
