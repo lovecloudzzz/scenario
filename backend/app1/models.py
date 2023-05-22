@@ -20,9 +20,7 @@ class MyUserManager(UserManager):
 class User(AbstractBaseUser):
     objects = MyUserManager()
     email = models.EmailField(unique=True, null=True)
-    name = models.CharField(max_length=255)
     username = models.CharField(max_length=255, unique=True, null=True)
-    phone_number = PhoneNumberField(unique=True, null=True)
     avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
     lists = models.ManyToManyField("List")
     REQUIRED_FIELDS = []
