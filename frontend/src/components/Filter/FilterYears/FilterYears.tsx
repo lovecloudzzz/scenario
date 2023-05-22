@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './FilterYears.module.sass'
+import FilterInput from "../FilterInput/FilterInput";
 export const FilterYears = () => {
     return (
         <div className={styles.FilterYears}>
@@ -7,8 +8,8 @@ export const FilterYears = () => {
                 Год релиза:
             </a>
             <div className={styles.FilterYearsMain}>
-                <input placeholder={"От года:"}/>
-                <input placeholder={"До года:"}/>
+                <FilterInput/>
+                <FilterInput/>
             </div>
         </div>
     );
