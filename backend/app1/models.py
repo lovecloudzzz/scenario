@@ -1,7 +1,12 @@
 from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin, UserManager
-from phonenumber_field.modelfields import PhoneNumberField
+from django.contrib.auth.models import UserManager
 from django.db import models
+
+TYPE_CHOICES = (
+    ('anime', 'Anime'),
+    ('serial', 'Serial'),
+    ('film', 'Film'),
+)
 
 
 class MyUserManager(UserManager):
@@ -23,16 +28,19 @@ class User(AbstractBaseUser):
     username = models.CharField(max_length=255, unique=True, null=True)
     avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
     lists = models.ManyToManyField("List")
-    REQUIRED_FIELDS = []
+
+
+class ListManager(models.Manager):
+    def filter_by_type(self, user, title__type):
+        return self.filter(user=user, type=title__type)
 
 
 class List(models.Model):
+    objects = ListManager()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     items = models.ManyToManyField("Item", through='ListItem')
-
-    def __str__(self):
-        return self.title
+    type = models.CharField(max_length=100, choices=TYPE_CHOICES)
 
 
 class Item(models.Model):
@@ -42,30 +50,72 @@ class Item(models.Model):
         return self.title
 
 
-class Rating(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    score = models.IntegerField()
-
-    def __str__(self):
-        return f"Rating {self.id}"
-
 class ListItemManager(models.Manager):
     def filter_by_list_id(self, list_id):
         return self.filter(list__id=list_id)
+
 
 class ListItem(models.Model):
     objects = ListItemManager()
     list = models.ForeignKey(List, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return f"ListItem {self.id}"
+
+class ViewedManager(models.Manager):
+    def filter_by_list_id(self, list_id):
+        return self.filter(list__id=list_id)
+
+
+class Viewed(models.Model):
+    objects = ViewedManager()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    type = models.CharField(max_length=100, choices=TYPE_CHOICES)
+
+
+class PlannedManager(models.Manager):
+    def filter_by_list_id(self, list_id):
+        return self.filter(list__id=list_id)
+
+
+class Planned(models.Model):
+    objects = PlannedManager()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    type = models.CharField(max_length=100, choices=TYPE_CHOICES)
+
+
+class DroppedManager(models.Manager):
+    def filter_by_list_id(self, list_id):
+        return self.filter(list__id=list_id)
+
+
+class Dropped(models.Model):
+    objects = DroppedManager()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    type = models.CharField(max_length=100, choices=TYPE_CHOICES)
+
+
+class DeferredManager(models.Manager):
+    def filter_by_list_id(self, list_id):
+        return self.filter(list__id=list_id)
+
+
+class Deferred(models.Model):
+    objects = DeferredManager()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    type = models.CharField(max_length=100, choices=TYPE_CHOICES)
+
+
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    score = models.IntegerField()
 
 
 class News(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-
-    def __str__(self):
-        return self.title
+    banner = models.ImageField(upload_to='banner/', blank=True, null=True)
