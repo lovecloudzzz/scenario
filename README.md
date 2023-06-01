@@ -6,5 +6,6 @@
 
 ### Запуск:
 1)cd backend -> python manage.py runserver -> cd ..
+
 2)cd frontend -> npm start
 
