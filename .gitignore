@@ -12,3 +12,4 @@
 /backend/venv/
 /backend/scenario/.env
 .idea
+/backend/backend/.env

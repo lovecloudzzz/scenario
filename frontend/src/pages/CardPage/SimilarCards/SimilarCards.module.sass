@@ -1,0 +1,44 @@
+.SimilarCards
+  display: flex
+  flex-wrap: wrap
+  gap: 10px
+  margin-left: 5%
+
+.Card
+  position: relative
+  width: 200px
+  height: 300px
+  overflow: hidden
+
+.CardImage
+  width: 100%
+  height: 100%
+  background-size: cover
+  background-position: center
+  transition: opacity 0.3s ease
+
+.CardName
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  display: flex
+  align-items: center
+  justify-content: center
+  background-color: rgba(0, 0, 0, 0.7)
+  opacity: 0
+  transition: opacity 0.3s ease
+
+.Card:hover .CardImage
+  opacity: 0
+
+.Card:hover .CardName
+  opacity: 1
+
+.CardInfo
+  text-decoration: none
+  color: #fff
+  font-size: 18px
+  font-weight: bold
+  text-align: center
