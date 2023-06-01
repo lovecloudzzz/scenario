@@ -8,7 +8,7 @@ export const CardTags: React.FC<CardTagsProps> = (props) => {
     return (
         <div className={styles.Tags}>
             {props.tagsArray.map((tag, index) => (
-                <a key={index}>{tag}</a>
+                <a key={index} className={styles.Tag}>{tag}</a>
             ))}
         </div>
     );

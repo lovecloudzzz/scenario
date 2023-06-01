@@ -1,11 +1,21 @@
-nav
-  display: flex
-  flex-direction: row
+.Navbar
+  overflow: hidden
+  background-color: #E0B1CB
+  font-family: Jost, sans-serif
   padding: 0 10% 0 10%
+  display: flex
   justify-content: space-between
-  border-bottom: 2px solid #BE95C4
-  &Item
-    background: #BE95C4
-    color: #231942
-.current
-  border-bottom: 3px solid #5E548E
+  &Row
+    display: flex
+    flex-direction: row
+    gap: 30px
+    &Logo
+      font-family: Merienda, serif
+      font-weight: 400
+      font-size: 35px
+      line-height: 51px
+      text-align: center
+      padding: 5px 5px
+      letter-spacing: -0.03em
+      &:hover
+        text-decoration: underline #231942

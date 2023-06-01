@@ -4,10 +4,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 interface CardAddButtonProps {
-    listNames: string[];
+    listsNames: string[];
+    item_name: string
 }
 
-export const CardAddButton: React.FC<CardAddButtonProps> = ({ listNames }) => {
+export const CardAddButton: React.FC<CardAddButtonProps> = ({ listsNames ,item_name}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState('');
     const [requestStatus, setRequestStatus] = useState('');
@@ -19,15 +20,15 @@ export const CardAddButton: React.FC<CardAddButtonProps> = ({ listNames }) => {
     const handleOptionSelect = (option: string) => {
         setSelectedOption(option);
         setIsOpen(false);
-        sendRequest(option);
+        addToList(option, item_name);
     };
 
-    const sendRequest = (option: string) => {
+    const addToList = (listname: string, item_name: string) => {
         axios
-            .post('/django-api-url', { option })
+            .post('/add/item', { listname, item_name})
             .then((response) => {
                 // Обработка успешного ответа от сервера
-                setRequestStatus(`Запрос отправлен с опцией: ${option}`);
+                setRequestStatus(`Запрос отправлен с опцией: ${listname}, ${item_name}`);
             })
             .catch((error) => {
                 // Обработка ошибок
@@ -38,11 +39,10 @@ export const CardAddButton: React.FC<CardAddButtonProps> = ({ listNames }) => {
     return (
         <div className="CardAddButton">
             <button className="CardAddButtonDropdown" onClick={handleToggle}>
-                <img src={AddButton} alt={"Кнопка Добавления"}/>
             </button>
             {isOpen && (
                 <ul className="CardAddButtonDropdownContent">
-                    {listNames.map((name, index) => (
+                    {listsNames.map((name, index) => (
                         <li
                             key={index}
                             className="dropdown-option"

@@ -3,12 +3,13 @@ import React from "react";
 import styles from "./CardsArray.module.sass"
 interface CardArrayProps {
     cards: CardProps[]
+    list_names: string[]
 }
 
-export const CardArray: React.FC<CardArrayProps> = ({ cards }) => {
+export const CardArray: React.FC<CardArrayProps> = ({ cards ,list_names}) => {
     return (
         <div className={styles.CardArray}>
-            {cards.map((card, index) => (
+            {cards.map((card, index,) => (
                 <Card
                     key={index}
                     title={card.title}
@@ -17,7 +18,7 @@ export const CardArray: React.FC<CardArrayProps> = ({ cards }) => {
                     score={card.score}
                     rating={card.rating}
                     img={card.img}
-                    listNames={card.listNames}
+                    listNames={list_names}
                 />
             ))}
         </div>

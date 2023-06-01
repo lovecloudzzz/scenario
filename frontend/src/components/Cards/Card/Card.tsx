@@ -26,7 +26,7 @@ export const Card: React.FC<CardProps> = (props) => {
               <div className={styles.CardFooter}>
                   <a>{props.rating}</a>
                   <a>{props.score}</a>
-                  <CardAddButton listsNames={props.listNames}/>
+                  <CardAddButton listsNames={props.listNames} item_name={props.title}/>
               </div>
             </div>
         </div>
