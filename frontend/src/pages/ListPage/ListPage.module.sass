@@ -1,0 +1,56 @@
+.List
+  display: flex
+  flex-direction: column
+  gap: 30px
+  align-items: center
+  color: #231942
+  &Name
+    font-size: 30px
+    line-height: 35px
+    font-family: Jost, sans-serif
+  &Items
+    display: flex
+    flex-direction: column
+    gap: 5px
+    &Item
+      display: flex
+      flex-direction: row
+      justify-content: space-between
+      width: 700px
+      font-family: Montserrat, sans-serif
+      border-bottom: #231942 solid 1px
+      height: 45px
+      &Right
+        display: flex
+        flex-direction: row
+        gap: 30px
+        &Score
+          font-size: 25px
+          display: flex
+          justify-content: center
+          align-items: center
+          line-height: 30px
+        &Button
+          width: 40px
+          height: 40px
+          display: flex
+          justify-content: center
+          align-items: center
+          border: none
+          background: none
+          padding: 5px 0 0 0
+          &:hover
+            background: #E0B1CB
+          &Img
+            height: 40px
+            width: 40px
+
+.Link
+  text-decoration: none
+  font-size: 20px
+  line-height: 30px
+  color: #231942
+  display: flex
+  align-items: center
+  &:hover
+    color: #BE95C4

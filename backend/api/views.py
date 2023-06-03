@@ -114,3 +114,65 @@ def ratingAdd(request, type, id, title, score):
 
     rating = Rating.objects.create_rating(user=user, item=item, score=score)
     return Response({'success': 'Rating added'})
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def deleteListItem(request, type, listname, url_id):
+    user = request.user
+
+    # Get the item and list item to be deleted
+    item = Item.objects.get_item(type=type, url_id=url_id)
+    list_item = ListItem.objects.filter(user=user, item=item, type=type, list=listname).first()
+
+    # Check if the list item exists
+    if list_item is None:
+        return Response({'error': 'List item not found.'}, status=404)
+
+    # Delete the list item
+    list_item.delete()
+
+    return Response({'success': 'List item deleted successfully.'})
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def ratingGet(request, type, url_id, title):
+    user = request.user
+
+    # Check if the item exists
+    item = Item.objects.get_item(type=type, url_id=url_id)
+    if item is None:
+        # If the item doesn't exist, create a new one
+        item = Item.objects.create_item(title=title, type=type, url_id=url_id)
+
+    # Retrieve the rating for the item
+    rating = Rating.objects.filter_ratings(user=user, item=item)
+
+    serialized_rating = {
+        "rating": rating
+    }
+
+    return Response(serialized_rating)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def lastRatings(request):
+    user = request.user
+
+    # Получаем последние 10 рейтингов пользователя
+    ratings = Rating.objects.filter(user=user).order_by('-id')[:10]
+
+    serialized_ratings = []
+    for rating in ratings:
+        item = rating.item
+        serialized_rating = {
+            "item_title": item.title,
+            "item_type": item.type,
+            "item_url_id": item.url_id,
+            "score": rating.score
+        }
+        serialized_ratings.append(serialized_rating)
+
+    return Response(serialized_ratings)

@@ -1,12 +1,12 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useContext} from 'react';
 import styles from './Header.module.sass';
 import { LoginModal } from '../Modals/LoginModal/LoginModal';
 import { RegistrationModal } from '../Modals/RegistrationModal/RegistrationModal';
 import { UserAvatar } from "./UserAvatar/UserAvatar";
 import { LogoutButton } from "./LogoutButton/LogoutButton";
 import { NavItem } from "./NavItem/NavItem";
-import { API_URL } from "../../index";
 import AuthContext,{AuthContextProps} from "../../context/AuthContext";
+import {Link} from "react-router-dom";
 
 interface HeaderProps {}
 
@@ -16,10 +16,10 @@ let {user} = useContext(AuthContext) as AuthContextProps
     return (
         <nav className={styles.Navbar}>
             <div className={styles.NavbarRow}>
-                <div className={styles.NavbarRowLogo}>Scénario</div>
+                <Link to={'/'} className={styles.Link}><div className={styles.NavbarRowLogo}>Scénario</div></Link>
                 <NavItem title={'Фильмы'} paths={['films', 'film']} links={[{label: "Тайтлы", path: '/films/1'}]}/>
-                <NavItem title={'Сериалы'} paths={['serial', 'serials']} links={[{label: "Тайтлы", path: '/serials/1'},{label: "Расписание", path: '/schedule/serial'}]}/>
-                <NavItem title={'Аниме'} paths={['anime', 'animes']} links={[{label: "Тайтлы", path: '/animes/1'},{label: "Расписание", path: '/schedule/anime'}]}/>
+                <NavItem title={'Сериалы'} paths={['serial', 'serials']} links={[{label: "Тайтлы", path: '/serials/1'}]}/>
+                <NavItem title={'Аниме'} paths={['anime', 'animes']} links={[{label: "Тайтлы", path: '/animes/1'}]}/>
             </div>
             <div className={styles.NavbarRow}>
                 {user ? (

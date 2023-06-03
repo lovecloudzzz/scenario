@@ -1,31 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import useAxios from "../../utils/useAxios";
+import useAxios from '../../utils/useAxios';
+import styles from './ListPage.module.sass';
+import DeleteButton from '../../assets/DeleteButton.svg';
+import {CardPageScoreInput} from "../CardPage/CardPageScoreInput/CardPageScoreInput";
 
 type ListProps = {
     title: string;
-    rating: number;
-    url_id: number
+    rating: number | undefined;
+    url_id: number;
 };
 
 export const ListPage = () => {
     const [listData, setListData] = useState<ListProps[]>();
     const api = useAxios();
 
-    const { list, type } = useParams<{ list: string, type: string }>();
+    const { list, type } = useParams<{ list: any; type: any }>();
+
     let text: string;
     switch (list) {
         case 'planned':
-            text = 'Список планируемого';
+            text = 'Запланировано';
             break;
         case 'viewed':
-            text = 'Список просмотренного';
+            text = 'Просмотрено';
             break;
         case 'deferred':
-            text = 'Список отложенного';
+            text = 'Отложено';
             break;
         case 'dropped':
-            text = 'Список брошенного';
+            text = 'Брошено';
             break;
         default:
             text = '';
@@ -44,20 +48,46 @@ export const ListPage = () => {
         }
     };
 
+    const deleteListItem = async (url_id: number) => {
+        try {
+            const response = await api.post(`/api/user/delete/${type}/${list}/${url_id}`);
+            if (response.status === 200) {
+                getList();
+            }
+        } catch (error) {
+            console.error('Error deleting list item:', error);
+        }
+    };
+
+
     useEffect(() => {
         getList();
     }, [type, list]);
-console.log(listData)
+
     return (
         <div>
             {listData && (
-                <div>
-                    <h2>{text}</h2>
-                    <ul>
+                <div className={styles.List}>
+                    <a className={styles.ListName}>{text}</a>
+                    <ul className={styles.ListItems}>
                         {listData.map((item, index) => (
-                            <li key={index}>
-                                <Link to={`/${type}/${item.url_id}`}>{item.title}</Link>
-                                <span>  Оценка: {item.rating}</span>
+                            <li key={index} className={styles.ListItemsItem}>
+                                <Link to={`/${type}/${item.url_id}`} className={styles.Link}>
+                                    {item.title}
+                                </Link>
+                                <div className={styles.ListItemsItemRight}>
+                                    <CardPageScoreInput type={type} id={item.url_id} title={item.title} />
+                                    <button
+                                        className={styles.ListItemsItemRightButton}
+                                        onClick={() => deleteListItem(item.url_id)}
+                                    >
+                                        <img
+                                            className={styles.ListItemsItemRightButtonImg}
+                                            src={DeleteButton}
+                                            alt={`Удалить ${item.title} из списка`}
+                                        />
+                                    </button>
+                                </div>
                             </li>
                         ))}
                     </ul>
@@ -66,3 +96,5 @@ console.log(listData)
         </div>
     );
 };
+
+export default ListPage;

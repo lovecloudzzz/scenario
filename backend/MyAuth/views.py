@@ -4,13 +4,16 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from Core.models import CustomUser
-import requests
+from datetime import datetime
+
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
         token['username'] = user.username
+        register_date = user.date_joined.strftime('%Y.%m.%d')
+        token['registerDate'] = register_date
         if user.avatar:
             token['avatar'] = user.avatar.url
         else:
@@ -20,6 +23,11 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
+
+    def post(self, request, *args, **kwargs):
+        print('Refresh request received')
+        return super().post(request, *args, **kwargs)
+
 
 
 @api_view(['POST'])

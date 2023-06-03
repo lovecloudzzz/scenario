@@ -48,7 +48,7 @@ def films(request, page):
     params = {
         'page': page,
         'type': 'movie',
-        'limit': '30'
+        'limit': '35'
     }
     headers = {
         'X-API-KEY': KP_API_TOKEN,
@@ -65,7 +65,7 @@ def films(request, page):
             # Итерируемся по каждому фильму/сериалу
             for film in response_data['docs']:
                 # Проверяем наличие полей 'poster', 'year', 'description', 'rating', 'genres' и 'names'
-                if 'poster' in film and 'year' in film and 'description' in film and 'rating' in film and 'genres' in film and 'names' in film:
+                if 'poster' in film and 'year' in film  and 'rating' in film and 'genres' in film and 'names' in film:
                     ru_name = next((name['name'] for name in film['names'] if name.get('language') == 'RU'), None)
                     if ru_name:
                         film_data = {
@@ -89,7 +89,7 @@ def serials(request, page):
     params = {
         'page': page,
         'type': 'tv-series',
-        'limit': '50'
+        'limit': '60'
     }
     headers = {
         'X-API-KEY': KP_API_TOKEN,
@@ -106,17 +106,16 @@ def serials(request, page):
             # Итерируемся по каждому фильму/сериалу
             for film in response_data['docs']:
                 # Проверяем наличие полей 'poster', 'year', 'description', 'rating', 'genres' и 'names'
-                if 'poster' in film and 'year' in film and 'description' in film and 'rating' in film and 'genres' in film and 'names' in film:
+                if 'poster' in film and 'year' in film  and 'rating' in film and 'genres' in film and 'names' in film:
                     ru_name = next((name['name'] for name in film['names'] if name.get('language') == 'RU'), None)
                     if ru_name:
                         film_data = {
                             'id': film['id'],
                             'poster': film['poster']['url'],
                             'year': film['year'],
-                            'description': film['description'],
                             'rating': film['rating']['kp'],
                             'genres': [genre['name'] for genre in film['genres']],
-                            'ru_name': ru_name
+                            'name': ru_name
                         }
                         films_data.append(film_data)
 
@@ -145,9 +144,10 @@ def anime(request, id):
         rating = data.get('rating')
         description = data.get('description')
         genres = [genre.get('name') for genre in data.get('genres', [])]
-
-        clean_description = re.sub(r'(\[.*?\]|\r\n|[\[\]])', '', description)
-
+        try:
+            clean_description = re.sub(r'(\[.*?\]|\r\n|[\[\]])', '', description)
+        except:
+            clean_description = description
         anime_data = {
             'name': name,
             'poster': poster,
@@ -219,10 +219,8 @@ def animes(request, page):
                 poster = str('https://shikimori.me/'+anime_data.get('image', {}).get('original'))
                 score = anime_data.get('score')
                 year = anime_data.get('aired_on')[:4] if anime_data.get('aired_on') else 3000
-                description = anime_data.get('description')
                 genres = [genre.get('name') for genre in anime_data.get('genres', [])]
 
-                clean_description = re.sub(r'(\[.*?\]|\r\n|[\[\]])', '', description)
 
                 # Создание словаря с нужными полями
                 anime_data_dict = {
@@ -231,7 +229,6 @@ def animes(request, page):
                     'poster': poster,
                     'score': score,
                     'year': year,
-                    'description': clean_description,
                     'genres': genres,
                 }
 

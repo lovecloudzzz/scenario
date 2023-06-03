@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import React, { useState} from 'react';
+import {Link } from 'react-router-dom';
 import styles from './NavItem.module.sass';
 import ArrowDown from '../../../assets/ArrowDown.svg'
 
@@ -9,7 +9,7 @@ type NavItemProps = {
     paths: string[];
 };
 
-export const NavItem: React.FC<NavItemProps> = ({ title, links, paths }) => {
+export const NavItem: React.FC<NavItemProps> = ({ title, links}) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const handleDropdownToggle = () => {
@@ -25,8 +25,8 @@ export const NavItem: React.FC<NavItemProps> = ({ title, links, paths }) => {
             {isDropdownOpen && (
                 <div className={styles.NavItemDropdownContent}>
                     {links.map((link, index) => (
-                        <a key={index} className="">
-                            <Link to={link.path}>{link.label}</Link>
+                        <a key={index} className={styles.Link}>
+                            <Link to={link.path} >{link.label}</Link>
                         </a>
                     ))}
                 </div>

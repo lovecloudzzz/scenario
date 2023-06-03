@@ -1,0 +1,90 @@
+.Profile
+  display: flex
+  flex-direction: row
+  gap: 30px
+  justify-content: space-evenly
+  &Col
+    display: flex
+    flex-direction: column
+    gap: 30px
+
+
+.AvatarRow
+  display: flex
+  flex-direction: column
+  gap: 5px
+  margin-top: 30px
+
+  &Settings
+    display: flex
+    flex-direction: row
+    justify-content: space-evenly
+    gap: 20px
+    border-bottom: #5E548E 1px solid
+    color: #231942
+    &Date
+      font-size: 22px
+      text-align: center
+      line-height: 32px
+      font-family: Merienda, serif
+      font-style: normal
+    &Img
+      width: 32px
+      height: 32px
+      &:hover
+        background-color: #E0B1CB
+        border-radius: 5px
+
+  &Img
+    min-width: 250px
+    max-width: 250px
+    min-height: 250px
+    max-height: 250px
+    object-fit: fill
+    border-radius: 10px
+    border: #231942 1px solid
+
+.ListsRow
+  display: flex
+  flex-direction: column
+  color: #231942
+
+  &Type
+    display: flex
+    flex-direction: row
+    gap: 30px
+    font-family: Jost, sans-serif
+    font-style: normal
+    letter-spacing: -0.05em
+
+    &Name
+      min-width: 115px
+      font-size: 25px
+      font-family: Montserrat, sans-serif
+      font-style: normal
+      font-weight: 400
+
+    &Lists
+      display: flex
+      flex-direction: row
+      gap: 30px
+      align-items: center
+      border: #5E548E 1px solid
+      justify-content: space-evenly
+      min-width: 700px
+      padding-left: 10px
+      border-radius: 5px
+      font-size: 18px
+li
+  list-style-type: none
+
+.Link
+  text-decoration: none
+  color: #231942
+  &:hover
+    color: #BE95C4
+
+.Username
+  font-size: 35px
+  font-family: Jost, sans-serif
+

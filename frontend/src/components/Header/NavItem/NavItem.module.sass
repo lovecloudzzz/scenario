@@ -17,6 +17,7 @@
     line-height: 40px
     letter-spacing: -0.05em
     margin: 0
+    cursor: pointer
     &Img
       margin-left: 5px
 
@@ -26,10 +27,11 @@
   &Content
     display: none
     position: absolute
-    background-color: #E0B1CB
+    background-color: rgba(224, 177, 203)
     min-width: 160px
     z-index: 1
-
+    border-radius: 10px
+    top: 55px
     a
       float: none
       color: #231942
@@ -39,7 +41,7 @@
       font-family: Jost, serif
       font-style: italic
       font-weight: 400
-      font-size: 20px
+      font-size: 25px
       line-height: 29px
       text-align: center
       letter-spacing: -0.05em
@@ -48,3 +50,7 @@
 
   &:hover .NavItemDropdownContent
     display: block
+.Link
+  text-decoration: none
+  &:hover
+    color: #5E548E

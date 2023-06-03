@@ -49,4 +49,7 @@ urlpatterns = [
     path('api/<str:username>/<str:type>/lists', views.userAllTypeLists, name='user-all-type-lists'),
     path('api/user/add/<str:type>/<str:listname>/<int:id>/<str:title>', views.itemAddToList, name='item-add-to-list'),
     path('api/user/rating/<str:type>/<int:id>/<str:title>/<int:score>', views.ratingAdd, name='rating-add'),
+    path('api/user/delete/<str:type>/<str:listname>/<int:url_id>', views.deleteListItem),
+    path('api/user/rating/<str:type>/<int:url_id>/<str:title>', views.ratingGet),
+    path('api/user/last-ratings', views.lastRatings, name='last-ratings'),
 ]

@@ -138,3 +138,5 @@ class Rating(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     score = models.IntegerField(choices=SCORE_CHOICES)
     objects = RatingManager()
+
+

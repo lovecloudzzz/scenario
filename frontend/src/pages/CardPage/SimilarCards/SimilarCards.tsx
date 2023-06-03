@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./SimilarCards.module.sass";
+import CardFlip from "react-card-flip";
 
 interface SimilarCard {
     id: number;
@@ -11,30 +12,30 @@ interface SimilarCard {
 
 export const SimilarCard: React.FC<SimilarCard> = (props) => {
     const { id, poster, name, type } = props;
-    const [showName, setShowName] = useState(false);
+    const [isFlipped, setIsFlipped] = useState(false);
 
     const handleCardClick = () => {
-        setShowName(!showName);
+        setIsFlipped(!isFlipped);
     };
 
+    const cardClassName = `${styles.CardImage} ${type === "anime" ? styles.AnimeImage : ""}`;
+
     return (
-        <div className={styles.Card} onClick={handleCardClick}>
-            <div
-                className={styles.CardImage}
-                style={{ background: poster, opacity: showName ? 0 : 1 }}
-            >
-                <img src={poster} alt={'poster'}/>
-            </div>
-            {showName && (
-                <Link to={`/${type}/${id}`}>
-                <div className={styles.CardName}>
-                    <a className={styles.CardInfo}>
-                        {name}
-                    </a>
+        <CardFlip isFlipped={isFlipped} flipDirection="horizontal">
+            <div className={styles.Card} onClick={handleCardClick}>
+                <div className={styles.CardImage}>
+                    <img src={poster} alt="poster" className={cardClassName} />
                 </div>
-                </Link>
-            )}
-        </div>
+            </div>
+
+            <div className={styles.Card} onClick={handleCardClick}>
+                <div className={styles.CardName}>
+                    <Link to={`/${type}/${id}`} className={styles.CardLink}>
+                        <a className={styles.CardInfo}>{name}</a>
+                    </Link>
+                </div>
+            </div>
+        </CardFlip>
     );
 };
 
@@ -45,10 +46,11 @@ interface SimilarCards {
 
 export const SimilarCards: React.FC<SimilarCards> = (props) => {
     const { similar, type } = props;
+    const limitedSimilar = similar.slice(0, 10); // Получаем подмассив с максимум 10 элементами
 
     return (
         <div className={styles.SimilarCards}>
-            {similar.map((card) => (
+            {limitedSimilar.map((card) => (
                 <SimilarCard key={card.id} {...card} type={type} />
             ))}
         </div>

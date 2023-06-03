@@ -10,10 +10,69 @@
   justify-content: center
 
   &Content
+    display: flex
+    flex-direction: column
+    gap: 20px
     background-color: #fff
     padding: 20px
     border-radius: 5px
-    max-width: 400px
+    min-width: 400px
+    min-height: 200px
 
     h1
       margin: 0
+      text-align: center
+      font-size: 30px
+
+.Button
+  display: flex
+  justify-content: center
+  align-items: center
+  font-size: 28px
+  padding: 0 5px 0 3px
+  border: none
+  font-style: italic
+  color: #231942
+  font-family: Jost, sans-serif
+  background: #fff9ff
+
+.Form
+  display: flex
+  flex-direction: column
+  gap: 20px
+  justify-content: center
+  align-items: center
+
+.formField
+  font-size: 30px
+  display: flex
+  align-items: center
+  font-family: Montserrat, sans-serif
+  flex-direction: column
+  justify-content: center
+  text-align: center
+
+input
+  width: 200px
+  height: 30px
+  font-family: Montserrat,sans-serif
+  font-size: 20px
+
+.Label
+  min-width: 150px
+  font-size: 20px
+  line-height: 25px
+
+.error
+  font-size: 10px
+
+.ModalButton
+  min-width: 210px
+  height: 30px
+  padding: 0 5px 0 5px
+  font-size: 21px
+  border: #231942 solid 1px
+  background-color: #FFF9FF
+  color: #231942
+  &:active
+    background-color: #E0B1CB

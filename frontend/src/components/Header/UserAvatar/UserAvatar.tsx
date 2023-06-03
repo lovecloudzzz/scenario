@@ -15,7 +15,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({ image, profileName }) =>
         imageUrl = 'http://127.0.0.1:8000'+imageUrl
     }
     return (
-        <Link to={`/user/${profileName}`}>
+        <Link to={`/user/${profileName}`} className={styles.Link}>
             <div className={styles.UserAvatar}>
                 <a className={styles.UserAvatarNick}>{profileName}</a>
                 <img src={imageUrl} alt="User Avatar" className={styles.UserAvatarImg} />

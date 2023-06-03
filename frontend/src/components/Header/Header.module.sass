@@ -2,13 +2,17 @@
   overflow: hidden
   background-color: #E0B1CB
   font-family: Jost, sans-serif
-  padding: 0 10% 0 10%
   display: flex
-  justify-content: space-between
+  border-bottom: #231942 2px solid
+  justify-content: space-evenly
+
   &Row
     display: flex
     flex-direction: row
-    gap: 30px
+    gap: 10px
+    justify-content: center
+    align-items: center
+
     &Logo
       font-family: Merienda, serif
       font-weight: 400
@@ -17,5 +21,13 @@
       text-align: center
       padding: 5px 5px
       letter-spacing: -0.03em
+
       &:hover
+        color: #5E548E
         text-decoration: underline #231942
+
+  .Link
+    color: #231942
+
+    &:hover
+      color: #5E548E

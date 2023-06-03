@@ -2,10 +2,28 @@
   display: flex
   justify-content: center
   margin-top: 20px
-
-
+  gap: 30px
 .PaginationLink
-  display: inline-block
-  padding: 8px 16px
-  background-color: #f5f5f5
-  color: #333
+  background-color: #E0B1CB
+  text-decoration: none
+  border-radius: 10px
+  display: flex
+  justify-content: center
+  align-items: center
+  padding: 10px
+
+
+.PaginationLink.PreviousLink::before
+  content: "<"
+  margin-right: 5px
+  border: none
+  text-decoration: none
+
+.PaginationLink.NextLink::after
+  content: ">"
+  margin-left: 5px
+  border: none
+
+.Img
+  width: 30px
+  height: 30px

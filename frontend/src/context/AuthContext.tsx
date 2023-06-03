@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 interface User {
     id: number;
     username: string;
-    avatar: string
+    avatar: string;
+    registerDate: string
 }
 
 export interface AuthContextProps {

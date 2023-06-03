@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams, useLocation } from 'react-router-dom';
+import {useParams, useLocation } from 'react-router-dom';
 import styles from './CardPage.module.sass';
 import CardPageGenres from './CardPageGenres/CardPageGenres';
 import { SimilarCards } from './SimilarCards/SimilarCards';
 import { CardPageButton } from './CardPageButton/CardPageButton';
-import { CardPageScoreButton } from './CardPageScoreButton/CardPageScoreButton';
+import { CardPageScoreInput } from './CardPageScoreInput/CardPageScoreInput';
 import useAxios from '../../utils/useAxios';
 
 export const CardPage = () => {
@@ -74,7 +74,7 @@ export const CardPage = () => {
                     </div>
                     <div className={styles.HeadTools}>
                         <CardPageButton type={type} id={parseInt(id ?? '0')} title={name} />
-                        <CardPageScoreButton id={parseInt(id ?? '0')} title={name} type={type} />
+                        <CardPageScoreInput id={parseInt(id ?? '0')} title={name} type={type} />
                         <a>{score}</a>
                     </div>
                 </div>

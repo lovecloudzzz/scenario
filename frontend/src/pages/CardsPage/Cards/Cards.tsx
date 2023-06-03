@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Cards.module.sass";
+import CardFlip from "react-card-flip";
 import CardGenres from "./CardGenres/CardGenres";
 
 export interface CardInterface {
@@ -9,28 +10,31 @@ export interface CardInterface {
     name: string;
     type: string;
     genres: string[];
-
     score: number;
     year: string;
 }
 
 export const Card: React.FC<CardInterface> = (props) => {
     const { id, poster, name, type, genres, score, year } = props;
-    const [showName, setShowName] = useState(false);
+    const [isFlipped, setIsFlipped] = useState(false);
 
     const handleCardClick = () => {
-        setShowName(!showName);
+        setIsFlipped(!isFlipped);
     };
-    const cardClassName = `${styles.CardImage} ${type === "anime" ? styles.AnimeCard : ""}`;
+
+    const cardClassName = `${styles.CardImage} ${type === "anime" ? styles.AnimeImage : ""}`;
 
     return (
-        <div className={styles.Card} onClick={handleCardClick}>
-            <div className={cardClassName} style={{ opacity: showName ? 0 : 1 }}>
-                <img src={poster} alt={'poster'} className={cardClassName} />
+        <CardFlip isFlipped={isFlipped} flipDirection="horizontal">
+            <div className={styles.Card} onClick={handleCardClick}>
+                <div className={styles.CardImage}>
+                    <img src={poster} alt="poster" className={cardClassName} />
+                </div>
             </div>
-            {showName && (
+
+            <div className={styles.Card} onClick={handleCardClick}>
                 <div className={styles.CardInfo}>
-                    <Link to={`/${type}/${id}`}>
+                    <Link to={`/${type}/${id}`} className={styles.Link}>
                         <div className={styles.CardInfoName}>{name}</div>
                     </Link>
                     <div className={styles.CardInfoScoreAndYear}>
@@ -40,8 +44,8 @@ export const Card: React.FC<CardInterface> = (props) => {
                     <div className={styles.CardInfoGenres}><CardGenres genres={genres} /></div>
                     <div className={styles.CardInfoDescription}></div>
                 </div>
-            )}
-        </div>
+            </div>
+        </CardFlip>
     );
 };
 

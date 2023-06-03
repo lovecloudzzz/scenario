@@ -1,44 +1,46 @@
 .SimilarCards
   display: flex
   flex-wrap: wrap
-  gap: 10px
+  gap: 20px
   margin-left: 5%
+  margin-bottom: 5%
 
 .Card
   position: relative
   width: 200px
   height: 300px
+  background-color: rgba(190, 149, 196, 0.5)
+  border-radius: 10px
+  border: #231942 1px solid
+  box-sizing: border-box
+  display: flex
   overflow: hidden
+  font-family: Montserrat, sans-serif
 
 .CardImage
-  width: 100%
-  height: 100%
-  background-size: cover
-  background-position: center
-  transition: opacity 0.3s ease
+  max-height: 100%
+  object-fit: contain
 
 .CardName
-  position: absolute
-  top: 0
-  left: 0
   width: 100%
   height: 100%
   display: flex
   align-items: center
   justify-content: center
-  background-color: rgba(0, 0, 0, 0.7)
-  opacity: 0
-  transition: opacity 0.3s ease
-
-.Card:hover .CardImage
-  opacity: 0
-
-.Card:hover .CardName
-  opacity: 1
+  color: #231942
 
 .CardInfo
-  text-decoration: none
-  color: #fff
   font-size: 18px
   font-weight: bold
   text-align: center
+
+.CardLink
+    text-decoration: none
+    color: inherit
+    padding: 10px 10% 10px 10%
+    &:hover
+      color: #E0B1CB
+.AnimeImage
+  min-width: 200px
+  object-position: center
+  object-fit: fill

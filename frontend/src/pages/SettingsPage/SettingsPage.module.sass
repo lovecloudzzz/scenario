@@ -1,0 +1,48 @@
+.Settings
+  display: flex
+  flex-direction: row
+  gap: 200px
+  justify-content: center
+  font-family: Montserrat, sans-serif
+
+  &Row
+    display: flex
+    flex-direction: column
+    position: relative
+
+    &Form
+      display: flex
+      flex-direction: column
+      gap: 15px
+      justify-content: flex-start
+
+      &Name
+        min-width: 200px
+
+      label
+        display: flex
+        align-items: center
+
+.Input
+  border-radius: 5px
+  border: 1px solid #231942
+  outline: none
+  &:focus
+    border-color: #E0B1CB
+
+.Button
+  width: 205.6px
+  border-radius: 5px
+  background-color: #FFF9FF
+  border: #231942 1px solid
+  color: #231942
+  height: 30px
+  font-family: Montserrat, sans-serif
+  font-size: 20px
+  &:active
+    background-color: #f3cee3
+
+input[type=file]
+  width: 130px
+  font-size: 15px
+  font-family: Montserrat, sans-serif
